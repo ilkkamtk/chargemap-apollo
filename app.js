@@ -2,9 +2,9 @@ import dotenv from 'dotenv';
 import express from 'express';
 import {ApolloServer} from 'apollo-server-express';
 import connectMongo from './db/db.mjs';
-import {typeDefs} from './graphql/typeDefs.mjs';
+import {schema} from './graphql/schema.mjs';
 import {resolvers} from './graphql/resolvers.mjs';
-import Station from './models/station.mjs';
+// import Station from './models/station.mjs';
 
 dotenv.config();
 
@@ -23,7 +23,7 @@ const startServer = async () => {
     }*/
 
     const server = new ApolloServer({
-      typeDefs,
+      typeDefs: schema,
       resolvers,
     });
 

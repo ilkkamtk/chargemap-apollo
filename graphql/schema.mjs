@@ -1,8 +1,11 @@
 import {gql} from 'apollo-server-express';
 
-export const typeDefs = gql`
+export const schema = gql`
   type Query {
     stations(bounds: Bounds, limit: Int = 10, start: Int): [Station]
+    connectiontypes: [ConnectionType]
+    leveltypes: [LevelType]
+    currenttypes: [CurrentType]
   }
 
   type Station {

@@ -1,4 +1,9 @@
 import Station from '../models/station.mjs';
+import Connection from '../models/connection.mjs';
+import ConnectionType from '../models/connectionType.mjs';
+import CurrentType from '../models/currentType.mjs';
+import LevelType from '../models/level.mjs';
+import User from '../models/user.mjs';
 import {rectangleBounds} from '../utils/rectangleBounds.js';
 
 export const resolvers = {
@@ -15,9 +20,12 @@ export const resolvers = {
       })).populate({
         path: 'Connections',
         populate: {
-          path: 'ConnectionTypeID LevelID CurrentTypeID'
-        }
+          path: 'ConnectionTypeID LevelID CurrentTypeID',
+        },
       });
-    }
+    },
+    connectiontypes: async () => ConnectionType.find(),
+    leveltypes: async () => LevelType.find(),
+    currenttypes: async () => CurrentType.find(),
   },
 };

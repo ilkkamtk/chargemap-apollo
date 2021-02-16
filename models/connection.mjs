@@ -1,7 +1,4 @@
 import mongoose from 'mongoose';
-import ConnectionType from './ConnectionType.mjs';
-import Level from './Level.mjs';
-import CurrentType from './CurrentType.mjs';
 
 const Schema = mongoose.Schema;
 
