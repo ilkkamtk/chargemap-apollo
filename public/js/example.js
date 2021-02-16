@@ -297,9 +297,9 @@
   const addConnToList = (options, element) => {
     const [conT, levT, curT, quant] = options;
     const connection = {
-      ConnectionTypeIDID: conT.value,
+      ConnectionTypeID: conT.value,
       LevelID: levT.value,
-      CurrentTypeIDID: curT.value,
+      CurrentTypeID: curT.value,
       Quantity: +quant.value,
     };
     connections.push(connection);
@@ -520,7 +520,6 @@
     id
     full_name
     username
-    token
   }
 }
 `,
@@ -688,9 +687,9 @@
     const conns = mConnections.map(conn => ({
           id: conn.id,
           Quantity: +conn.Quantity,
-          ConnectionTypeIDID: conn.ConnectionTypeID.id,
+          ConnectionTypeID: conn.ConnectionTypeID.id,
           LevelID: conn.LevelID.id,
-          CurrentTypeIDID: conn.CurrentTypeID.id,
+          CurrentTypeID: conn.CurrentTypeID.id,
         }
     ));
 
