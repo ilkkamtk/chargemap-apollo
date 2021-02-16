@@ -2,17 +2,18 @@ import dotenv from 'dotenv';
 import express from 'express';
 import {ApolloServer} from 'apollo-server-express';
 import connectMongo from './db/db.js';
-import {schema} from './graphql/schema.js';
-import {resolvers} from './graphql/resolvers.js';
-// import Station from './models/station.js';
+import schemas from './schemas/index.js';
+import resolvers from './resolvers/index.js';
+// import Station from './models/stationSchema.js';
 
 dotenv.config();
 
 const startServer = async () => {
   try {
     const conn = await connectMongo();
-    /*if (conn) {
+    if (conn) {
       console.log('Connected successfully.');
+      /*
       const stations = await Station.find().populate({
         path: 'Connections',
         populate: {
@@ -20,10 +21,11 @@ const startServer = async () => {
         }
       })
       console.log(stations[0].Connections[0]);
-    }*/
+      */
+    }
 
     const server = new ApolloServer({
-      typeDefs: schema,
+      typeDefs: schemas,
       resolvers,
     });
 

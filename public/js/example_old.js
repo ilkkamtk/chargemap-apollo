@@ -10,7 +10,7 @@
     }
   }
 
-  const apiURL = './graphql';
+  const apiURL = './stationResolver';
 
   // html elements
   const mapSection = document.getElementById('map');
@@ -49,7 +49,7 @@
 
   const geocodeService = L.esri.Geocoding.geocodeService();
 
-  // general fetch from graphql API
+  // general fetch from stationResolver API
   const fetchGraphql = async (query) => {
     const options = {
       method: 'POST',
@@ -238,7 +238,7 @@
   const town = document.querySelector('input[name=town]');
   const state = document.querySelector('input[name=state]');
 
-  // fetch connectionTypes from graphql API
+  // fetch connectionTypes from stationResolver API
   const fetchConnectionTypes = async () => {
     const query = {
       query: `{
@@ -257,7 +257,7 @@
 
   fetchConnectionTypes();
 
-  // fetch levels from graphql API
+  // fetch levels from stationResolver API
   const fetchLevels = async () => {
     const query = {
       query: `{
@@ -307,7 +307,7 @@
     console.log(connections);
   };
 
-  // fetch current types from graphql API
+  // fetch current types from stationResolver API
   const fetchCurrentTypes = async () => {
     const query = {
       query: `{

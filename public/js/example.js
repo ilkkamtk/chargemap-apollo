@@ -56,7 +56,7 @@
 
   const geocodeService = L.esri.Geocoding.geocodeService();
 
-  // general fetch from graphql API
+  // general fetch from stationResolver API
   const fetchGraphql = async (query) => {
     const options = {
       method: 'POST',
@@ -254,7 +254,7 @@
   const town = document.querySelector('input[name=town]');
   const state = document.querySelector('input[name=state]');
 
-  // fetch connectionTypes from graphql API
+  // fetch connectionTypes from stationResolver API
   const fetchConnectionTypeIDs = async (element) => {
     const query = {
       query: `{
@@ -273,7 +273,7 @@
 
   fetchConnectionTypeIDs(conTypes);
 
-  // fetch levels from graphql API
+  // fetch levels from stationResolver API
   const fetchLevels = async (element) => {
     const query = {
       query: `{
@@ -332,7 +332,7 @@
     // console.log(connections);
   };
 
-  // fetch current types from graphql API
+  // fetch current types from stationResolver API
   const fetchCurrentTypeIDs = async (element) => {
     const query = {
       query: `{

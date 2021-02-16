@@ -1,12 +1,7 @@
 import Station from '../models/station.js';
-import Connection from '../models/connection.js';
-import ConnectionType from '../models/connectionType.js';
-import CurrentType from '../models/currentType.js';
-import LevelType from '../models/level.js';
-import User from '../models/user.js';
 import {rectangleBounds} from '../utils/rectangleBounds.js';
 
-export const resolvers = {
+export default {
   Query: {
     stations: async (parent, args, context, info) => {
       const mapBounds = rectangleBounds(args.bounds._northEast,
@@ -24,8 +19,5 @@ export const resolvers = {
         },
       });
     },
-    connectiontypes: async () => ConnectionType.find(),
-    leveltypes: async () => LevelType.find(),
-    currenttypes: async () => CurrentType.find(),
   },
 };
