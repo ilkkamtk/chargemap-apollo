@@ -1,9 +1,9 @@
-import Station from '../models/station.mjs';
-import Connection from '../models/connection.mjs';
-import ConnectionType from '../models/connectionType.mjs';
-import CurrentType from '../models/currentType.mjs';
-import LevelType from '../models/level.mjs';
-import User from '../models/user.mjs';
+import Station from '../models/station.js';
+import Connection from '../models/connection.js';
+import ConnectionType from '../models/connectionType.js';
+import CurrentType from '../models/currentType.js';
+import LevelType from '../models/level.js';
+import User from '../models/user.js';
 import {rectangleBounds} from '../utils/rectangleBounds.js';
 
 export const resolvers = {

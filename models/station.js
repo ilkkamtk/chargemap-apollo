@@ -1,7 +1,7 @@
 // https://docs.mongodb.com/manual/core/2dsphere/
 
 import mongoose from 'mongoose';
-import Connection from './connection.mjs';
+import Connection from './connection.js';
 
 const Schema = mongoose.Schema;
 

@@ -1,10 +1,10 @@
 import dotenv from 'dotenv';
 import express from 'express';
 import {ApolloServer} from 'apollo-server-express';
-import connectMongo from './db/db.mjs';
-import {schema} from './graphql/schema.mjs';
-import {resolvers} from './graphql/resolvers.mjs';
-// import Station from './models/station.mjs';
+import connectMongo from './db/db.js';
+import {schema} from './graphql/schema.js';
+import {resolvers} from './graphql/resolvers.js';
+// import Station from './models/station.js';
 
 dotenv.config();
 
