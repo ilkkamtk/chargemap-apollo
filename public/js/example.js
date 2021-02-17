@@ -56,7 +56,7 @@
 
   const geocodeService = L.esri.Geocoding.geocodeService({
     // API Key to be passed to the ArcGIS Online Geocoding Service
-    apikey: 'AAPK65dba25da0c34e3d8d00a9f207095dafmZRVUGDeZ_mL0AkR7Y7yMFcd7oqAP7kPCnVvbaMHV_KRpomgpMTu8OFIox77WzwV'
+    apikey: 'AAPK65dba25da0c34e3d8d00a9f207095dafmZRVUGDeZ_mL0AkR7Y7yMFcd7oqAP7kPCnVvbaMHV_KRpomgpMTu8OFIox77WzwV',
   });
 
   // general fetch from stationResolver API
@@ -74,8 +74,7 @@
       const response = await fetch(apiURL, options);
       const json = await response.json();
       return json.data;
-    }
-    catch (e) {
+    } catch (e) {
       console.log(e);
       return false;
     }
@@ -96,13 +95,25 @@
         info.innerHTML = '';
 
         // show info
-        const {Title, Town, Address, Connections, Location, id} = feature.properties;
+        const {
+          Title,
+          Town,
+          Address,
+          Connections,
+          Location,
+          id,
+        } = feature.properties;
         title.innerHTML = Title;
         address.appendChild(document.createTextNode(`${Town}, ${Address}`));
         Connections.forEach((connection) => {
 
           checkNull(connection);
-          const {Quantity, ConnectionTypeID, CurrentTypeID, LevelID} = connection;
+          const {
+            Quantity,
+            ConnectionTypeID,
+            CurrentTypeID,
+            LevelID,
+          } = connection;
           let fast = `, fast charge`;
           if (!LevelID.IsFastChargeCapable) {
             fast = '';
@@ -112,8 +123,7 @@
 
             if (CurrentTypeID.Title.includes('AC'))
               acdcIcon = '&#9190;';
-          }
-          catch (e) {
+          } catch (e) {
             console.log(e);
           }
           info.innerHTML += `
@@ -156,7 +166,7 @@
   const init = async () => {
     infoSection.scrollTop = 0;
     const bounds = JSON.stringify(map.getBounds()).
-    replace(new RegExp('"', 'g'), '');
+        replace(new RegExp('"', 'g'), '');
     const query = {
       query: `{
       stations(bounds: ${bounds}) {
@@ -233,9 +243,9 @@
   const center = (position) => {
     const marker = L.marker(
         [position.coords.latitude, position.coords.longitude]).
-    addTo(map).
-    bindPopup('You are here.').
-    openPopup();
+        addTo(map).
+        bindPopup('You are here.').
+        openPopup();
     map.panTo(marker.getLatLng());
   };
 
@@ -354,8 +364,18 @@
 
   fetchCurrentTypeIDs(curTypes);
 
+  // hack to prevent click firing twice on mobile
+  let lastClick = 0;
+
   const locToForm = (evt) => {
-    // console.log(evt.latlng);
+    // hack to prevent click firing twice on mobile
+    // console.log(lastClick, Date.now(), Date.now() - lastClick);
+    if (Date.now() - lastClick < 100) {
+      // console.log('should stop');
+      return;
+    }
+    lastClick = Date.now();
+
     loc.value = `${evt.latlng.lng}, ${evt.latlng.lat}`;
     geocodeService.reverse().latlng(evt.latlng).run((error, result) => {
       if (error) {
@@ -413,7 +433,7 @@
       query: `mutation {
   addStation(
     Connections: ${JSON.stringify(filteredConnections).
-      replace(/\"([^(\")"]+)\":/g, '$1:')},
+          replace(/\"([^(\")"]+)\":/g, '$1:')},
     Postcode: "${postcode.value}",
     Title: "${stTitle.value}",
     AddressLine1: "${addr.value}",
@@ -503,8 +523,7 @@
       closeLogin(evt);
       loginBtn.classList.toggle('hide');
       add.classList.toggle('hide');
-    }
-    catch (e) {
+    } catch (e) {
       console.log('error', e.message);
     }
 
@@ -732,8 +751,7 @@
       closeLow();
       openMap();
       init();
-    }
-    catch (e) {
+    } catch (e) {
       console.log(e.message);
     }
 
@@ -764,8 +782,7 @@
       closeLow();
       openMap();
       init();
-    }
-    catch (e) {
+    } catch (e) {
       console.log(e.message);
     }
   };
