@@ -54,7 +54,10 @@
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
   }).addTo(map);
 
-  const geocodeService = L.esri.Geocoding.geocodeService();
+  const geocodeService = L.esri.Geocoding.geocodeService({
+    // API Key to be passed to the ArcGIS Online Geocoding Service
+    apikey: 'AAPK65dba25da0c34e3d8d00a9f207095dafmZRVUGDeZ_mL0AkR7Y7yMFcd7oqAP7kPCnVvbaMHV_KRpomgpMTu8OFIox77WzwV'
+  });
 
   // general fetch from stationResolver API
   const fetchGraphql = async (query) => {

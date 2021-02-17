@@ -16,7 +16,7 @@ export default gql`
       Location: PointObjectInput
     ): Station
   }
-
+  
   type Station {
     id: ID
     Connections: [Connection]
