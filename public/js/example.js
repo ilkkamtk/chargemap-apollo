@@ -49,7 +49,7 @@
   });
 
   // add map
-  const map = L.map('map').setView([60.24, 24.74], 11);
+  const map = L.map('map', {zoomControl: false}).setView([60.24, 24.74], 11);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
   }).addTo(map);
@@ -240,17 +240,24 @@
   };
 
   // add user position
-  const center = (position) => {
+  const center = (e) => {
     const marker = L.marker(
-        [position.coords.latitude, position.coords.longitude]).
+        e.latlng).
         addTo(map).
         bindPopup('You are here.').
         openPopup();
-    map.panTo(marker.getLatLng());
+    L.circle(e.latlng, e.accuracy).addTo(map);
   };
 
   // get user location
-  navigator.geolocation.getCurrentPosition(center, reject, options);
+  map.locate(
+      {
+        setView: true,
+        maxZoom: 13,
+        enableHighAccuracy: true,
+        watch: true,
+      });
+  map.on('locationfound', center);
 
   // add new station *********************************
   const connForm = document.getElementById('conn-form');
