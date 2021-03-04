@@ -22,4 +22,5 @@ export default [
   currentTypeSchema,
   levelTypeSchema,
   stationSchema,
-  userSchema];
+  userSchema,
+];

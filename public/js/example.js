@@ -73,6 +73,9 @@
     try {
       const response = await fetch(apiURL, options);
       const json = await response.json();
+      if(!response.ok) {
+        return json.errors[0].message;
+      }
       return json.data;
     } catch (e) {
       console.log(e);
@@ -733,7 +736,7 @@
     };
 
     const query = {
-      query: `mutation VariableTest($id: ID!, $Connections: [Connection], $Postcode: String, $Title: String, $AddressLine1: String, $StateOrProvince: String, $Town: String) {
+      query: `mutation VariableTest($id: ID!, $Connections: [ConnectionInput], $Postcode: String, $Title: String, $AddressLine1: String, $StateOrProvince: String, $Town: String) {
   modifyStation(
     id: $id,
     Connections: $Connections,
