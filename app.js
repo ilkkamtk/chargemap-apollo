@@ -5,22 +5,10 @@ import connectMongo from './db/db.js';
 import schemas from './schemas/index.js';
 import resolvers from './resolvers/index.js';
 import jwt from 'jsonwebtoken';
-import bcrypt from 'bcrypt';
+import cors from 'cors';
+import {checkAuth} from './utils/auth.js';
 
 dotenv.config();
-
-const getUser = async (req) => {
-  const authHeader = req.headers.authorization;
-
-  if (authHeader) {
-    const token = authHeader.split(' ')[1];
-    try {
-      return await jwt.verify(token, 'riddlemethis');
-    } catch (e) {
-      return false;
-    }
-  }
-};
 
 const startServer = async () => {
   try {
@@ -32,17 +20,21 @@ const startServer = async () => {
     const server = new ApolloServer({
       typeDefs: schemas,
       resolvers,
-      context: async ({req}) => {
+      context: async ({req, res}) => {
         if (req) {
-          const me = await getUser(req);
+          const user = await checkAuth(req, res);
+          console.log('app', user);
           return {
-            me,
+            req,
+            res,
+            user,
           };
         }
       },
     });
 
     const app = express();
+    app.use(cors());
     app.use(express.static('public'));
     app.use('/modules', express.static('node_modules'));
 

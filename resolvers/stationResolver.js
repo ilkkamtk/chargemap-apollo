@@ -31,8 +31,8 @@ export default {
     },
   },
   Mutation: {
-    addStation: async (parent, args, {me}, info) => {
-      if (!me) {
+    addStation: async (parent, args, {user}, info) => {
+      if (!user) {
         throw new AuthenticationError('You are not authenticated');
       }
       const conns = await Promise.all(args.Connections.map(async conn => {
@@ -47,9 +47,9 @@ export default {
       });
       return newStation.save();
     },
-    modifyStation: async (parent, args, {me}, info) => {
+    modifyStation: async (parent, args, {user}, info) => {
       try {
-        if (!me) {
+        if (!user) {
           throw new AuthenticationError('You are not authenticated');
         }
         await Promise.all(args.Connections.map(async conn => {
@@ -69,9 +69,9 @@ export default {
         throw new Error(err);
       }
     },
-    deleteStation: async (parent, args, {me}, info) => {
+    deleteStation: async (parent, args, {user}, info) => {
       try {
-        if (!me) {
+        if (!user) {
           throw new AuthenticationError('You are not authenticated');
         }
         // delete connections
