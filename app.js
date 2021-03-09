@@ -1,12 +1,11 @@
 import dotenv from 'dotenv';
-import express from 'express';
-import {ApolloServer, AuthenticationError} from 'apollo-server-express';
 import connectMongo from './db/db.js';
+import {ApolloServer} from 'apollo-server-express';
 import schemas from './schemas/index.js';
 import resolvers from './resolvers/index.js';
-import jwt from 'jsonwebtoken';
-import cors from 'cors';
 import {checkAuth} from './utils/auth.js';
+import express from 'express';
+import cors from 'cors';
 
 dotenv.config();
 
@@ -44,8 +43,11 @@ const startServer = async () => {
         console.log(
             `🚀 Server ready at http://localhost:3000${server.graphqlPath}`),
     );
+
+    return server;
   } catch (e) {
     console.log('server error: ' + e.message);
   }
 };
+
 startServer();

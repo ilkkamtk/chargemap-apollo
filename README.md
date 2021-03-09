@@ -10,7 +10,6 @@
        id
        username
        full_name
-       token
      }
    }
    ```

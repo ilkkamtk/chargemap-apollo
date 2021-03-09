@@ -31,7 +31,7 @@ const checkAuth = (req, res) => {
     passport.authenticate('jwt', (err, user) => {
       console.log('checkAuth', user, err);
       if (err || !user) {
-        reject(new Error(err));
+        resolve(false);
       }
       resolve(user);
     })(req, res);

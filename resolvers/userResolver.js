@@ -1,6 +1,7 @@
 import User from '../models/user.js';
 import {AuthenticationError} from 'apollo-server-express';
 import {login} from '../utils/auth.js';
+import bcrypt from 'bcrypt';
 
 export default {
   Query: {
@@ -23,6 +24,22 @@ export default {
         };
       } catch (e) {
         throw new AuthenticationError('Invalid credentials');
+      }
+    },
+  },
+  Mutation: {
+    registerUser: async (parent, args, {req, res}) => {
+      try {
+        const hash = await bcrypt.hash(args.password, 10);
+        const userWithHash = {
+          ...args,
+          password: hash,
+        };
+        const newUser = new User(userWithHash);
+        const result = await newUser.save();
+        return result;
+      } catch (err) {
+        throw new Error(err);
       }
     },
   },
