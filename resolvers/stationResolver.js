@@ -14,20 +14,29 @@ export default {
       });
     },
     stations: (parent, args, context, info) => {
-      const mapBounds = rectangleBounds(args.bounds._northEast,
-          args.bounds._southWest);
-      return Station.find(({
-        Location: {
-          $geoWithin: {  // geoWithin is built in mongoose, https://mongoosejs.com/docs/geojson.html
-            $geometry: mapBounds,
+      if (args.bounds) { // if bounds arg is in query
+        const mapBounds = rectangleBounds(args.bounds._northEast,
+            args.bounds._southWest);
+        return Station.find(({
+          Location: {
+            $geoWithin: {  // geoWithin is built in mongoose, https://mongoosejs.com/docs/geojson.html
+              $geometry: mapBounds,
+            },
           },
-        },
-      })).populate({
-        path: 'Connections',
-        populate: {
-          path: 'ConnectionTypeID LevelID CurrentTypeID',
-        },
-      });
+        })).populate({
+          path: 'Connections',
+          populate: {
+            path: 'ConnectionTypeID LevelID CurrentTypeID',
+          },
+        });
+      } else {
+        return Station.find().skip(args.start).limit(args.limit).populate({
+          path: 'Connections',
+          populate: {
+            path: 'ConnectionTypeID LevelID CurrentTypeID',
+          },
+        });
+      }
     },
   },
   Mutation: {
