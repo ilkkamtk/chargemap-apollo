@@ -15,6 +15,7 @@ export default {
     },
     stations: (parent, args, context, info) => {
       if (args.bounds) { // if bounds arg is in query
+        console.log('if bounds', bounds);
         const mapBounds = rectangleBounds(args.bounds._northEast,
             args.bounds._southWest);
         return Station.find(({
@@ -30,6 +31,7 @@ export default {
           },
         });
       } else {
+        console.log('else ', start, limit);
         return Station.find().skip(args.start).limit(args.limit).populate({
           path: 'Connections',
           populate: {
